@@ -58,9 +58,15 @@ func (cfg *apiConfig) handlerProcessReciepts(w http.ResponseWriter, r *http.Requ
 		return
 	}
 
+	type ResponseBody struct {
+		Id string `json:"id"`
+	}
+
 	cfg.DB.Store(uuidString, newReciept)
 
-	respondWithJSON(w, http.StatusOK, newReciept.ID)
+	respondWithJSON(w, http.StatusOK, ResponseBody{
+		Id: uuidString,
+	})
 
 }
 

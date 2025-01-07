@@ -1,4 +1,4 @@
-module github.com/thecommercialguy/FetchExercise.git
+module github.com/thecommercialguy/FetchExcercise.git
 
 go 1.23.1
 

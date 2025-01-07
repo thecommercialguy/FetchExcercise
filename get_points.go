@@ -2,7 +2,6 @@ package main
 
 import (
 	"errors"
-	"log"
 	"math"
 	"net/http"
 	"strconv"
@@ -20,23 +19,29 @@ func (cfg *apiConfig) handlerGetPointsByID(w http.ResponseWriter, r *http.Reques
 		return
 	}
 
+	type ResponseBody struct {
+		Points int64 `json:"points"`
+	}
+
 	reciept := value.(Reciept)
 	retailerPoints := retailerPoints(reciept.Retailer)
-	log.Printf("Retailer: %v", retailerPoints)
+	// log.Printf("Retailer: %v", retailerPoints)
 	totalPoints := totalPoints(reciept.Total)
-	log.Printf("Total: %v", totalPoints)
+	// log.Printf("Total: %v", totalPoints)
 	itemPoints := itemPoints(reciept.Items)
-	log.Printf("Item: %v", itemPoints)
+	// log.Printf("Item: %v", itemPoints)
 	descriptionPoints := descriptionPoints(reciept.Items)
-	log.Printf("Description: %v", descriptionPoints)
+	// log.Printf("Description: %v", descriptionPoints)
 	datePoints := datePoints(reciept.PurchaseDate)
-	log.Printf("Date: %v", datePoints)
+	// log.Printf("Date: %v", datePoints)
 	timePoints := timePoints(reciept.PurchaseTime)
-	log.Printf("Time: %v", timePoints)
+	// log.Printf("Time: %v", timePoints)
 	recieptPoints := retailerPoints + totalPoints + itemPoints + descriptionPoints + datePoints + timePoints
-	pointsString := strconv.Itoa(recieptPoints)
+	int64Points := int64(recieptPoints)
 
-	respondWithJSON(w, http.StatusOK, pointsString)
+	respondWithJSON(w, http.StatusOK, ResponseBody{
+		Points: int64Points,
+	})
 
 }
 
@@ -96,7 +101,6 @@ func descriptionPoints(items []Item) int {
 
 	for _, item := range items {
 		description := item.ShortDescription
-		// price := item.Price
 
 		descriptionTrimmed := strings.TrimSpace(description)
 
