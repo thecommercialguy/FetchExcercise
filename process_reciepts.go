@@ -32,6 +32,7 @@ func (cfg *apiConfig) handlerProcessReciepts(w http.ResponseWriter, r *http.Requ
 		Total        string `json:"total"`
 	}
 
+	// Decode JSON request body into Go readable struct
 	decoder := json.NewDecoder(r.Body)
 	params := parameters{}
 	err := decoder.Decode(&params)
@@ -40,9 +41,11 @@ func (cfg *apiConfig) handlerProcessReciepts(w http.ResponseWriter, r *http.Requ
 		return
 	}
 
+	// Generate new UUID using "github.com/google/uuid"
 	newUUID := uuid.New()
 	uuidString := newUUID.String()
 
+	// Store params data in a new reciept object.
 	newReciept := Reciept{
 		ID:           uuidString,
 		Retailer:     params.Retailer,
@@ -52,16 +55,19 @@ func (cfg *apiConfig) handlerProcessReciepts(w http.ResponseWriter, r *http.Requ
 		Total:        params.Total,
 	}
 
+	// Validates "Reciept" fields
 	valid := validateReceipt(newReciept)
 	if !valid {
 		respondWithError(w, http.StatusBadRequest, "The receipt is invalid.", err)
 		return
 	}
 
+	// Structure of JSON response body
 	type ResponseBody struct {
 		Id string `json:"id"`
 	}
 
+	// Store newly validated reciept in DB (sync.Map), using UUID generated as the key
 	cfg.DB.Store(uuidString, newReciept)
 
 	respondWithJSON(w, http.StatusOK, ResponseBody{
@@ -70,6 +76,7 @@ func (cfg *apiConfig) handlerProcessReciepts(w http.ResponseWriter, r *http.Requ
 
 }
 
+// Ensures each Reciept field conforms to expected patterns
 func validateReceipt(reciept Reciept) bool {
 	textPattern := regexp.MustCompile(`^[\w\s&-]+$`)
 	valid := textPattern.MatchString(reciept.Retailer)

@@ -4,8 +4,6 @@ import (
 	"log"
 	"net/http"
 	"sync"
-	// "encoding/json"
-	// "time"
 )
 
 type apiConfig struct {
@@ -21,19 +19,19 @@ func main() {
 
 	mux := http.NewServeMux()
 
-	// Will "process" the reciept(determine points)
+	// Processes and stores receipts (POST)
 	mux.HandleFunc("POST /reciepts/process", apiCfg.handlerProcessReciepts) // Reciept  // Return ID
 
-	// Will get the reciept's points
+	// Determine and return points awarded to a reciept (GET)
 	mux.HandleFunc("GET /reciepts/{id}/points", apiCfg.handlerGetPointsByID) // ID  // Return points
-	// mux.HandleFunc()
 
+	port := "8080"
 	srv := &http.Server{
-		Addr:    ":5000",
+		Addr:    ":" + port,
 		Handler: mux,
 	}
 
-	log.Printf("Serving files on port: 5000")
+	log.Printf("Serving files on port: %v", port)
 	log.Fatal(srv.ListenAndServe())
 
 }

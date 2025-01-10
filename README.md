@@ -1,6 +1,13 @@
 # 
 Fetch Reciept Processer Challange
 
+## ⚙️ Installation
+
+Inside a Go module:
+
+```bash
+go get github.com/thecommercialguy/FetchExcercise.git
+```
 
 ### GET /reciepts/{id}/points
 

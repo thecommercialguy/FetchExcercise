@@ -11,10 +11,10 @@ func respondWithError(w http.ResponseWriter, code int, msg string, err error) {
 		log.Println(err)
 	}
 	type errorResponse struct {
-		Error string `json:"error"`
+		Description string `json:"description"`
 	}
 	respondWithJSON(w, code, errorResponse{
-		Error: msg,
+		Description: msg,
 	})
 }
 

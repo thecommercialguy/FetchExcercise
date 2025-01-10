@@ -24,19 +24,17 @@ func (cfg *apiConfig) handlerGetPointsByID(w http.ResponseWriter, r *http.Reques
 	}
 
 	reciept := value.(Reciept)
+
+	// Obtaining points awarded by field
 	retailerPoints := retailerPoints(reciept.Retailer)
-	// log.Printf("Retailer: %v", retailerPoints)
 	totalPoints := totalPoints(reciept.Total)
-	// log.Printf("Total: %v", totalPoints)
 	itemPoints := itemPoints(reciept.Items)
-	// log.Printf("Item: %v", itemPoints)
-	descriptionPoints := descriptionPoints(reciept.Items)
-	// log.Printf("Description: %v", descriptionPoints)
-	datePoints := datePoints(reciept.PurchaseDate)
-	// log.Printf("Date: %v", datePoints)
-	timePoints := timePoints(reciept.PurchaseTime)
-	// log.Printf("Time: %v", timePoints)
-	recieptPoints := retailerPoints + totalPoints + itemPoints + descriptionPoints + datePoints + timePoints
+	shortDescriptionPoints := shortDescriptionPoints(reciept.Items)
+	purchaseDatePoints := purchaseDatePoints(reciept.PurchaseDate)
+	purchaseTimePoints := purchaseTimePoints(reciept.PurchaseTime)
+
+	// Summation of points awarded to Reciept
+	recieptPoints := retailerPoints + totalPoints + itemPoints + shortDescriptionPoints + purchaseDatePoints + purchaseTimePoints
 	int64Points := int64(recieptPoints)
 
 	respondWithJSON(w, http.StatusOK, ResponseBody{
@@ -45,6 +43,7 @@ func (cfg *apiConfig) handlerGetPointsByID(w http.ResponseWriter, r *http.Reques
 
 }
 
+// Calculates and returns points awarded based off "Retailer" field
 func retailerPoints(retailer string) int {
 	points := 0
 
@@ -62,6 +61,7 @@ func retailerPoints(retailer string) int {
 
 }
 
+// Calculates and returns points awarded based off "Total" field
 func totalPoints(total string) int {
 	points := 0
 
@@ -82,6 +82,7 @@ func totalPoints(total string) int {
 
 }
 
+// Calculates and returns points awarded based off "Items" array field
 func itemPoints(items []Item) int {
 	points := 0
 	numItems := len(items)
@@ -96,7 +97,8 @@ func itemPoints(items []Item) int {
 	return points
 }
 
-func descriptionPoints(items []Item) int {
+// Calculates and returns points awarded based off "ShortDescription" field
+func shortDescriptionPoints(items []Item) int {
 	points := 0
 
 	for _, item := range items {
@@ -118,7 +120,8 @@ func descriptionPoints(items []Item) int {
 	return points
 }
 
-func datePoints(purchaseDate string) int {
+// Calculates and returns points awarded based off "PurchaseDate" field
+func purchaseDatePoints(purchaseDate string) int {
 	points := 0
 	dateString := purchaseDate[8:10]
 
@@ -132,7 +135,8 @@ func datePoints(purchaseDate string) int {
 
 }
 
-func timePoints(purchaseTime string) int {
+// Calculates and returns points awarded based off "PurchaseTime" field
+func purchaseTimePoints(purchaseTime string) int {
 	points := 0
 	purchaseTimeSplit := strings.Split(purchaseTime, ":")
 	purchaseTimeJoined := strings.Join(purchaseTimeSplit, "")
