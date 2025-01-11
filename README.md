@@ -3,11 +3,42 @@ Fetch Reciept Processer Challange
 
 ## ⚙️ Installation
 
-Inside a Go module:
+Code editor / CLI:
 
 ```bash
-go get github.com/thecommercialguy/FetchExcercise.git
+git clone https://github.com/thecommercialguy/FetchExcercise.git
 ```
+
+## 🚀 Run Server
+
+Ensure "\fetchServer" is your PWD:
+
+```bash
+go run .
+```
+
+## 🚀 Run with docker
+
+Create an image with "Dockerfile":
+
+```bash
+docker build . -t <image-name>:latest
+```
+
+Run image in container: 
+
+```bash
+docker run -p 8080:8080 <image-name>:latest
+```
+
+## Unit testing
+Ensure "\fetchServer" is your PWD:
+
+```bash
+go test ./...
+```
+
+
 
 ### GET /reciepts/{id}/points
 
@@ -49,3 +80,5 @@ Response body:
     "id": "7fb1377b-b223-49d9-a31a-5a02701dd310"
 }
 ```
+
+
