@@ -38,7 +38,7 @@ Ensure "\fetchServer" is your PWD:
 go test ./...
 ```
 
-
+## Endpoints
 
 ### GET /reciepts/{id}/points
 
