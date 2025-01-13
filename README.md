@@ -1,5 +1,7 @@
 # Fetch Receipt Processer Challange
 
+A webservice that allows users to post receipts and view the points awarded for validated reciepts.
+
 ## ⚙️ Installation
 
 ```bash
