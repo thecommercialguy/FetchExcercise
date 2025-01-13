@@ -1,6 +1,6 @@
 # Fetch Receipt Processer Challange
 
-A webservice that allows users to post receipts and get the points awarded for validated reciepts.
+A webservice that allows users to post receipts and get the points awarded for validated receipts.
 
 ## ⚙️ Installation
 
@@ -17,7 +17,7 @@ git clone https://github.com/thecommercialguy/FetchExcercise.git
 
 1. Navigate to project directory:
 ```bash
-cd fetchServer/
+cd fetchExercise/
 ```
 
 2. Start the server:
@@ -31,7 +31,7 @@ go run .
 
 1. Navigate to project directory:
 ```bash
-cd fetchServer/
+cd fetchExercise/
 ```
 
 2. Create an image with "Dockerfile.multistage":
@@ -53,7 +53,7 @@ docker run fetch-server:multistage
 
 1. Navigate to project directory:
 ```bash
-cd fetchServer/
+cd fetchExercise/
 ```
 
 2. Run unit tests:
@@ -67,7 +67,7 @@ go test ./...
 
 1. Navigate to project directory:
 ```bash
-cd fetchServer/
+cd fetchExercise/
 ```
 
 2. Run unit tests:
