@@ -1,6 +1,6 @@
 # Fetch Receipt Processer Challange
 
-A webservice that allows users to post receipts and view the points awarded for validated reciepts.
+A webservice that allows users to post receipts and get the points awarded for validated reciepts.
 
 ## ⚙️ Installation
 
