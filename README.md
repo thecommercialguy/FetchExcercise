@@ -1,46 +1,81 @@
-# 
-Fetch Reciept Processer Challange
+# Fetch Receipt Processer Challange
 
 ## ⚙️ Installation
-
-Code editor / CLI:
 
 ```bash
 git clone https://github.com/thecommercialguy/FetchExcercise.git
 ```
 
-## 🚀 Run Server
+## 🚀 Run Server Locally
 
-Ensure "\fetchServer" is your PWD:
+#### Prerequisites:
+* Go (download from https://go.dev/dl/)
 
+#### Steps:
+
+1. Navigate to project directory:
+```bash
+cd fetchServer/
+```
+
+2. Start the server:
 ```bash
 go run .
 ```
 
 ## 🚀 Run with docker
 
-Create an image with "Dockerfile":
+#### Steps:
 
+1. Navigate to project directory:
 ```bash
-docker build . -t <image-name>:latest
+cd fetchServer/
 ```
 
-Run image in container: 
-
+2. Create an image with "Dockerfile.multistage":
 ```bash
-docker run -p 8080:8080 <image-name>:latest
+docker build -t fetch-server:multistage -f Dockerfile.multistage .
 ```
 
-## Unit testing
-Ensure "\fetchServer" is your PWD:
+3. Run image in container: 
+```bash
+docker run fetch-server:multistage
+```
 
+## Run Tests Locally
+
+#### Prerequisites:
+* Go (download from https://go.dev/dl/)
+
+#### Steps:
+
+1. Navigate to project directory:
+```bash
+cd fetchServer/
+```
+
+2. Run unit tests:
 ```bash
 go test ./...
 ```
 
+## Run Tests with Docker
+
+#### Steps:
+
+1. Navigate to project directory:
+```bash
+cd fetchServer/
+```
+
+2. Run unit tests:
+```bash
+docker build -f Dockerfile.multistage -t fetch-server-test --progress plain --no-cache --target run-test-stage .
+```
+
 ## Endpoints
 
-### GET /reciepts/{id}/points
+### GET /receipts/{id}/points
 
 ```json
 {
@@ -56,7 +91,7 @@ Response body:
 }
 ```
 
-### POST /reciepts/process
+### POST /receipts/process
 
 ```json
 {
@@ -80,5 +115,3 @@ Response body:
     "id": "7fb1377b-b223-49d9-a31a-5a02701dd310"
 }
 ```
-
-

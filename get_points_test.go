@@ -18,7 +18,7 @@ func TestHandlerGetPoints_Success(t *testing.T) {
 
 	testReceiptID := "00000000-0000-0000-0000-000000000000"
 
-	testReceipt := Reciept{
+	testReceipt := Receipt{
 		ID:           testReceiptID,
 		Retailer:     "Test Retailer",
 		PurchaseDate: "2024-12-18",
@@ -34,9 +34,9 @@ func TestHandlerGetPoints_Success(t *testing.T) {
 	apiCfg.DB.Store(testReceiptID, testReceipt)
 
 	mux := http.NewServeMux()
-	mux.HandleFunc("GET /reciepts/{id}/points", apiCfg.handlerGetPointsByID)
+	mux.HandleFunc("GET /receipts/{id}/points", apiCfg.handlerGetPointsByID)
 
-	path := "/reciepts/" + testReceiptID + "/points"
+	path := "/receipts/" + testReceiptID + "/points"
 	req := httptest.NewRequest(http.MethodGet, path, nil)
 	w := httptest.NewRecorder()
 
@@ -60,7 +60,7 @@ func TestHandlerGetPoints_ResponseBodyHasKey(t *testing.T) {
 
 	testReceiptID := "00000000-0000-0000-0000-000000000000"
 
-	testReceipt := Reciept{
+	testReceipt := Receipt{
 		ID:           testReceiptID,
 		Retailer:     "Test Retailer",
 		PurchaseDate: "2024-12-18",
@@ -76,9 +76,9 @@ func TestHandlerGetPoints_ResponseBodyHasKey(t *testing.T) {
 	apiCfg.DB.Store(testReceiptID, testReceipt)
 
 	mux := http.NewServeMux()
-	mux.HandleFunc("GET /reciepts/{id}/points", apiCfg.handlerGetPointsByID)
+	mux.HandleFunc("GET /receipts/{id}/points", apiCfg.handlerGetPointsByID)
 
-	path := "/reciepts/" + testReceiptID + "/points"
+	path := "/receipts/" + testReceiptID + "/points"
 	req := httptest.NewRequest(http.MethodGet, path, nil)
 	w := httptest.NewRecorder()
 
@@ -108,7 +108,7 @@ func TestHandlerGetPoints_ValidatePoints(t *testing.T) {
 
 	testReceiptID := "00000000-0000-0000-0000-000000000000"
 
-	testReceipt := Reciept{
+	testReceipt := Receipt{
 		ID:           testReceiptID,
 		Retailer:     "Test Retailer",
 		PurchaseDate: "2024-12-18",
@@ -124,9 +124,9 @@ func TestHandlerGetPoints_ValidatePoints(t *testing.T) {
 	apiCfg.DB.Store(testReceiptID, testReceipt)
 
 	mux := http.NewServeMux()
-	mux.HandleFunc("GET /reciepts/{id}/points", apiCfg.handlerGetPointsByID)
+	mux.HandleFunc("GET /receipts/{id}/points", apiCfg.handlerGetPointsByID)
 
-	path := "/reciepts/" + testReceiptID + "/points"
+	path := "/receipts/" + testReceiptID + "/points"
 	req := httptest.NewRequest(http.MethodGet, path, nil)
 	w := httptest.NewRecorder()
 
@@ -158,9 +158,9 @@ func TestHandlerGetPoints_NotFound(t *testing.T) {
 	}
 
 	testReceiptID := "00000000-0000-0000-0000-000000000000"
-	dummyRecieptID := "10000000-2000-3000-4000-500000000000"
+	dummyReceiptID := "10000000-2000-3000-4000-500000000000"
 
-	testReceipt := Reciept{
+	testReceipt := Receipt{
 		ID:           testReceiptID,
 		Retailer:     "Test Retailer",
 		PurchaseDate: "2024-12-18",
@@ -176,9 +176,9 @@ func TestHandlerGetPoints_NotFound(t *testing.T) {
 	apiCfg.DB.Store(testReceiptID, testReceipt)
 
 	mux := http.NewServeMux()
-	mux.HandleFunc("GET /reciepts/{id}/points", apiCfg.handlerGetPointsByID)
+	mux.HandleFunc("GET /receipts/{id}/points", apiCfg.handlerGetPointsByID)
 
-	path := "/reciepts/" + dummyRecieptID + "/points"
+	path := "/receipts/" + dummyReceiptID + "/points"
 	req := httptest.NewRequest(http.MethodGet, path, nil)
 	w := httptest.NewRecorder()
 
@@ -201,9 +201,9 @@ func TestHandlerGetPoints_ErrorResponseKey(t *testing.T) {
 	}
 
 	testReceiptID := "00000000-0000-0000-0000-000000000000"
-	dummyRecieptID := "10000000-2000-3000-4000-500000000000"
+	dummyReceiptID := "10000000-2000-3000-4000-500000000000"
 
-	testReceipt := Reciept{
+	testReceipt := Receipt{
 		ID:           testReceiptID,
 		Retailer:     "Test Retailer",
 		PurchaseDate: "2024-12-18",
@@ -219,9 +219,9 @@ func TestHandlerGetPoints_ErrorResponseKey(t *testing.T) {
 	apiCfg.DB.Store(testReceiptID, testReceipt)
 
 	mux := http.NewServeMux()
-	mux.HandleFunc("GET /reciepts/{id}/points", apiCfg.handlerGetPointsByID)
+	mux.HandleFunc("GET /receipts/{id}/points", apiCfg.handlerGetPointsByID)
 
-	path := "/reciepts/" + dummyRecieptID + "/points"
+	path := "/receipts/" + dummyReceiptID + "/points"
 	req := httptest.NewRequest(http.MethodGet, path, nil)
 	w := httptest.NewRecorder()
 
@@ -250,9 +250,9 @@ func TestHandlerGetPoints_ErrorResponseValue(t *testing.T) {
 	}
 
 	testReceiptID := "00000000-0000-0000-0000-000000000000"
-	dummyRecieptID := "10000000-2000-3000-4000-500000000000"
+	dummyReceiptID := "10000000-2000-3000-4000-500000000000"
 
-	testReceipt := Reciept{
+	testReceipt := Receipt{
 		ID:           testReceiptID,
 		Retailer:     "Test Retailer",
 		PurchaseDate: "2024-12-18",
@@ -268,9 +268,9 @@ func TestHandlerGetPoints_ErrorResponseValue(t *testing.T) {
 	apiCfg.DB.Store(testReceiptID, testReceipt)
 
 	mux := http.NewServeMux()
-	mux.HandleFunc("GET /reciepts/{id}/points", apiCfg.handlerGetPointsByID)
+	mux.HandleFunc("GET /receipts/{id}/points", apiCfg.handlerGetPointsByID)
 
-	path := "/reciepts/" + dummyRecieptID + "/points"
+	path := "/receipts/" + dummyReceiptID + "/points"
 	req := httptest.NewRequest(http.MethodGet, path, nil)
 	w := httptest.NewRecorder()
 

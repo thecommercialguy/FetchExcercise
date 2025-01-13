@@ -9,10 +9,11 @@ import (
 	"unicode"
 )
 
+// Processes and stores receipts
 func (cfg *apiConfig) handlerGetPointsByID(w http.ResponseWriter, r *http.Request) {
-	recieptID := r.PathValue("id")
+	receiptID := r.PathValue("id")
 
-	value, ok := cfg.DB.Load(recieptID)
+	value, ok := cfg.DB.Load(receiptID)
 	err := errors.New("receipt not found for id")
 	if !ok {
 		respondWithError(w, http.StatusNotFound, "No receipt found for that ID.", err)
@@ -23,19 +24,19 @@ func (cfg *apiConfig) handlerGetPointsByID(w http.ResponseWriter, r *http.Reques
 		Points int64 `json:"points"`
 	}
 
-	reciept := value.(Reciept)
+	receipt := value.(Receipt)
 
 	// Obtaining points awarded by field
-	retailerPoints := retailerPoints(reciept.Retailer)
-	totalPoints := totalPoints(reciept.Total)
-	itemPoints := itemPoints(reciept.Items)
-	shortDescriptionPoints := shortDescriptionPoints(reciept.Items)
-	purchaseDatePoints := purchaseDatePoints(reciept.PurchaseDate)
-	purchaseTimePoints := purchaseTimePoints(reciept.PurchaseTime)
+	retailerPoints := retailerPoints(receipt.Retailer)
+	totalPoints := totalPoints(receipt.Total)
+	itemPoints := itemPoints(receipt.Items)
+	shortDescriptionPoints := shortDescriptionPoints(receipt.Items)
+	purchaseDatePoints := purchaseDatePoints(receipt.PurchaseDate)
+	purchaseTimePoints := purchaseTimePoints(receipt.PurchaseTime)
 
-	// Summation of points awarded to Reciept
-	recieptPoints := retailerPoints + totalPoints + itemPoints + shortDescriptionPoints + purchaseDatePoints + purchaseTimePoints
-	int64Points := int64(recieptPoints)
+	// Summation of points awarded to Receipt
+	receiptPoints := retailerPoints + totalPoints + itemPoints + shortDescriptionPoints + purchaseDatePoints + purchaseTimePoints
+	int64Points := int64(receiptPoints)
 
 	respondWithJSON(w, http.StatusOK, ResponseBody{
 		Points: int64Points,
